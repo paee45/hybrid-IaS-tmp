@@ -1,0 +1,54 @@
+services:
+  homeassistant:
+    container_name: homeassistant
+    image: "ghcr.io/home-assistant/home-assistant:stable"
+    volumes:
+      - ./homeassistant_config:/config
+      - /etc/localtime:/etc/localtime:ro
+    restart: unless-stopped
+    privileged: true
+    network_mode: host
+
+  timescaledb:
+    container_name: timescaledb
+    image: "timescale/timescaledb:latest-pg14"
+    restart: unless-stopped
+    volumes:
+      - timescaledb_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=hauser
+      - POSTGRES_PASSWORD=your_secure_password
+      - POSTGRES_DB=homeassistant
+
+  # Add-on Replacements:
+  file_editor:
+    container_name: file_editor
+    image: "ghcr.io/home-assistant/configurator:latest"
+    restart: unless-stopped
+    ports:
+      - "3218:3218"
+    volumes:
+      - ./homeassistant_config:/config:ro # Read-only to prevent editing outside of the container
+      - ./homeassistant_config:/data
+      - ./homeassistant_config:/homeassistant_config
+
+  mosquitto:
+    container_name: mosquitto
+    image: "eclipse-mosquitto:latest"
+    restart: unless-stopped
+    ports:
+      - "1883:1883"
+    volumes:
+      - ./mosquitto_config:/mosquitto/config
+      - ./mosquitto_data:/mosquitto/data
+    environment:
+      - MOSQUITTO_USER=mqtt_user
+      - MOSQUITTO_PASS=your_mqtt_password
+
+volumes:
+  timescaledb_data:
+  # Named volumes for new services:
+  mosquitto_config:
+  mosquitto_data:

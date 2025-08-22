@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+    vista:
+        image: linuxserver/wireguard
+        container_name: vista
+        environment:
+            - PUID=1000
+            - PGID=1000
+            - TZ=Etc/UTC
+            - SERVERURL=<vista_endpoint>
+            - SERVERPORT=51820
+            - PEERS=tungpo
+            - PEERDNS=auto
+            - INTERNAL_SUBNET=10.0.0.0/24
+        volumes:
+            - ./config/vista:/config
+        ports:
+            - 51820:51820/udp
+        restart: unless-stopped
+
+    tungpo:
+        image: linuxserver/wireguard
+        container_name: tungpo
+        environment:
+            - PUID=1000
+            - PGID=1000
+            - TZ=Etc/UTC
+            - SERVERURL=<tungpo_endpoint>
+            - SERVERPORT=51821
+            - PEERS=vista
+            - PEERDNS=auto
+            - INTERNAL_SUBNET=10.0.0.0/24
+        volumes:
+            - ./config/tungpo:/config
+        ports:
+            - 51821:51821/udp
+        restart: unless-stopped

@@ -1,0 +1,13 @@
+services:
+  vault:
+    image: vault:1.9.0
+    ports:
+      - "8200:8200"
+    environment:
+      VAULT_LOCAL_CONFIG: /vault/config/vault.hcl
+    volumes:
+      - /Users/pa/Documents/_Pa/devop/docker-data/hashicorp-vault-local/config:/vault/config
+      - /Users/pa/Documents/_Pa/devop/docker-data/hashicorp-vault-local/data:/vault/data
+    cap_add:
+      - IPC_LOCK
+    restart: unless-stopped

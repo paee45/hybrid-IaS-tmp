@@ -1,0 +1,26 @@
+services:
+  homeassistant:
+    image: homeassistant/home-assistant:latest
+    container_name: homeassistant_2
+    volumes:
+      - ~/homeassistant/config:/config # Mount the configuration directory - same root as docker-compose yml file
+      - ~/homeassistant/data:/data
+      - ~/homeassistant/ssl:/ssl  # Mount the SSL certificate directory
+    environment:
+      - TZ=Asia/Bangkok
+    networks:
+      - homeassistant_network
+    restart: unless-stopped
+    ports:
+      - "8123:8123"  # HTTP (optional, for initial setup or fallback)
+      - "443:8123"   # HTTPS (host port 443 to container port 8123)
+
+volumes:
+  homeassistant-config:
+    driver: local
+  homeassistant-data:
+    driver: local
+
+networks:
+  homeassistant_network:
+    driver: bridge

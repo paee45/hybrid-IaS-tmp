@@ -1,0 +1,32 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: BUSL-1.1
+ */
+
+.env-banner {
+  font-size: 0.8rem;
+  border-radius: 3rem;
+  background: linear-gradient(
+    135deg,
+    $blue,
+    hsl(271, 100%, 71%)
+  ); // only use case for purple in the app. define here instead of utils/color_var
+  animation: env-banner-color-rotate 8s infinite linear alternate;
+  color: $white;
+
+  .hs-icon {
+    margin: 0;
+  }
+
+  .notification {
+    background-color: transparent;
+    line-height: 2;
+    padding: 0 $spacing-12;
+  }
+}
+
+@keyframes env-banner-color-rotate {
+  100% {
+    filter: hue-rotate(105deg);
+  }
+}

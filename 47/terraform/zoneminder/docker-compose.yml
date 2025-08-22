@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  zoneminder:
+    image: dlandon/zoneminder
+    environment:
+      - TZ=Etc/UTC
+      - ZM_DB_HOST=zoneminder_db
+      - ZM_DB_USER=zmuser
+      - ZM_DB_PASS=zmpass
+      - ZM_DB_NAME=zm
+    ports:
+      - "8080:80"
+    volumes:
+      - /Users/pa/Documents/_Pa/devop/docker-data/zoneminder/config:/config
+      - /Users/pa/Documents/_Pa/devop/docker-data/zoneminder/data:/var/cache/zoneminder
+    restart: unless-stopped
+
+  zoneminder_db:
+    image: mariadb
+    environment:
+      - MYSQL_ROOT_PASSWORD=rootpass
+      - MYSQL_DATABASE=zm
+      - MYSQL_USER=zmuser
+      - MYSQL_PASSWORD=zmpass
+    volumes:
+      - /Users/pa/Documents/_Pa/devop/docker-data/zoneminder-mariadb:/var/lib/mysql
+    restart: unless-stopped

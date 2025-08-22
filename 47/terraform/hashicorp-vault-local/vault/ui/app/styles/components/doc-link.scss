@@ -1,0 +1,12 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: BUSL-1.1
+ */
+
+.doc-link {
+  color: $blue;
+  font-weight: $font-weight-semibold;
+  &:hover {
+    text-decoration: underline !important;
+  }
+}

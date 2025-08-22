@@ -1,0 +1,30 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: BUSL-1.1
+ */
+
+.splash-page-logo {
+  padding: $spacing-8 $spacing-12 $spacing-8 $spacing-24;
+
+  @include from($mobile) {
+    padding-left: $spacing-8;
+  }
+
+  svg {
+    fill: $white;
+    height: 24px;
+    width: 72px;
+
+    @include from($mobile) {
+      margin-left: $spacing-8;
+    }
+  }
+}
+
+.splash-page-container {
+  margin: $spacing-36 0;
+}
+
+.splash-page-header {
+  padding: $spacing-14 0;
+}

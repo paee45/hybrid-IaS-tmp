@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: home-assistant
+spec:
+  serviceName: "home-assistant"
+  replicas: 2
+  selector:
+    matchLabels:
+      app: home-assistant
+  template:
+    metadata:
+      labels:
+        app: home-assistant
+    spec:
+      containers:
+        - name: home-assistant
+          image: homeassistant/home-assistant:latest
+          volumeMounts:
+            - name: home-assistant-config
+              mountPath: /config
+            - name: home-assistant-db
+              mountPath: /db
+  volumeClaimTemplates:
+    - metadata:
+        name: home-assistant-config
+      spec:
+        accessModes: [ReadWriteOnce]
+        resources:
+          requests:
+            storage: 10Gi
+    - metadata:
+        name: home-assistant-db
+      spec:
+        accessModes: [ReadWriteOnce]
+        resources:
+          requests:
+            storage: 10Gi
