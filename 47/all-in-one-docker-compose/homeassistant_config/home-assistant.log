@@ -1,3 +1,4 @@
 2025-08-22 21:30:01.087 WARNING (ImportExecutor_0) [py.warnings] /usr/local/lib/python3.13/site-packages/google/__init__.py:2: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
   __import__('pkg_resources').declare_namespace(__name__)
 
+2025-08-22 21:32:51.860 WARNING (MainThread) [homeassistant.helpers.entity] Updating state for sun.sun (<class 'homeassistant.components.sun.entity.Sun'>) took 1.370 seconds. Please create a bug report at https://github.com/home-assistant/core/issues?q=is%3Aopen+is%3Aissue+label%3A%22integration%3A+sun%22
