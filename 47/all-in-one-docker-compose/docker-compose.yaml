@@ -48,7 +48,35 @@ services:
       - MOSQUITTO_USER=mqtt_user
       - MOSQUITTO_PASS=your_mqtt_password
 
+
+  prometheus:
+    container_name: prometheus
+    image: prom/prometheus:v2.52.0
+    restart: unless-stopped
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus_data:/prometheus
+      - ./prometheus_config/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+
+  grafana:
+    container_name: grafana
+    image: grafana/grafana:12.1.0
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=your_grafana_password
+      - GF_PATHS_PROVISIONING=/etc/grafana/provisioning
+    volumes:
+      - ./grafana_data:/var/lib/grafana
+      - ./grafana_config/provisioning:/etc/grafana/provisioning
+      - ./grafana_config/dashboards:/var/lib/grafana/dashboards
+      - ./grafana_config/alert_rules:/var/lib/grafana/alert_rules
+
 volumes:
   timescaledb_data:
   mosquitto_config:
   mosquitto_data:
+  prometheus_data:
+  grafana_data:

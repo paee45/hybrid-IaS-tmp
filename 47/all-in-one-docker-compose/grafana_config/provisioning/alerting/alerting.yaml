@@ -1,0 +1,8 @@
+apiVersion: 1
+
+groups:
+  - name: default
+    folder: General
+    interval: 1m
+    rules:
+      - grafana_alert_rule: /var/lib/grafana/alert_rules/my_alert_rule.yaml
